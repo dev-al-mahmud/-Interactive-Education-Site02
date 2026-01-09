@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina | Premium Executive Education Platform</title>
+    
+    <!-- Fonts: Playfair Display (Luxury) & Plus Jakarta Sans (Corporate/Modern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a', // Slate 900
+                        secondary: '#475569', // Slate 600
+                        accent: '#c2a373', // Gold/Bronze
+                        'accent-dark': '#a18357',
+                        bg: '#f8fafc',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for Polish */
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+        
+        /* Premium Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Typography Utilities */
+        .text-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .text-gold {
+            background: linear-gradient(135deg, #c2a373 0%, #a18357 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hover Effects */
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Swiper Pagination Customization */
+        .swiper-pagination-bullet-active {
+            background-color: #0f172a !important;
+        }
+
+        /* Image Masking for organic feel */
+        .hero-mask {
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                    <div class="w-8 h-8 bg-primary text-white flex items-center justify-center rounded-sm font-serif italic font-bold text-xl">L</div>
+                    <span class="font-serif font-bold text-2xl tracking-tight text-primary">Lumina.</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Programs</a>
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Enterprise</a>
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Insights</a>
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">About</a>
+                </div>
+
+                <!-- CTA -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="#" class="text-sm font-medium text-primary hover:text-accent transition-colors">Log In</a>
+                    <a href="#" class="px-6 py-3 bg-primary text-white text-sm font-medium rounded-sm shadow-lg hover:bg-slate-800 transition-all hover:shadow-xl">
+                        Apply Now
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-primary hover:text-accent focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full">
+            <div class="px-4 pt-4 pb-6 space-y-2">
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-50">Programs</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-50">Enterprise</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-50">Insights</a>
+                <a href="#" class="block px-3 py-2 mt-4 bg-primary text-white text-center rounded-sm">Apply Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Decor -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-slate-100/50 -z-10 skew-x-12 translate-x-20"></div>
+        <div class="absolute top-20 left-10 w-64 h-64 bg-accent/5 rounded-full blur-3xl -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Content -->
+                <div data-aos="fade-right" data-aos-duration="1000">
+                    <span class="inline-block py-1 px-3 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold tracking-wide text-secondary uppercase mb-6">
+                        The Standard in Executive Learning
+                    </span>
+                    <h1 class="font-serif text-5xl lg:text-7xl font-medium leading-[1.1] mb-6 text-primary">
+                        Cultivating <br>
+                        <span class="italic text-accent">Visionary</span> Leadership
+                    </h1>
+                    <p class="text-lg text-secondary mb-8 leading-relaxed max-w-lg">
+                        Lumina bridges the gap between academic theory and corporate reality. Master the skills required to navigate the future of global business.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#" class="px-8 py-4 bg-primary text-white font-medium rounded-sm shadow-xl hover:bg-slate-800 hover:shadow-2xl transition-all text-center flex items-center justify-center group">
+                            Explore Programs
+                            <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#" class="px-8 py-4 bg-white border border-slate-200 text-primary font-medium rounded-sm hover:bg-slate-50 transition-all text-center flex items-center justify-center">
+                            View 2024 Report
+                        </a>
+                    </div>
+
+                    <!-- Trust Signals -->
+                    <div class="mt-12 pt-8 border-t border-slate-200 grid grid-cols-3 gap-8">
+                        <div>
+                            <p class="text-3xl font-serif text-primary">50k+</p>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Alumni</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-serif text-primary">120+</p>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Global Partners</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-serif text-primary">96%</p>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Career Impact</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual -->
+                <div class="relative" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="relative rounded-lg overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2671&auto=format&fit=crop" alt="Students collaborating" class="w-full h-[600px] object-cover hover:scale-105 transition-transform duration-700">
+                        
+                        <!-- Floating Card -->
+                        <div class="absolute bottom-8 left-8 right-8 glass-card p-6 rounded-md">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent-dark">
+                                    <i data-lucide="play-circle" class="w-6 h-6 fill-current"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-primary">Strategic Management</p>
+                                    <p class="text-xs text-slate-500">Next cohort starts Oct 15</p>
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="flex -space-x-2">
+                                        <img class="w-8 h-8 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&h=64" alt="">
+                                        <img class="w-8 h-8 rounded-full border-2 border-white" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64" alt="">
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-500">+4</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Decorative Elements -->
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-dots opacity-20"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Logos -->
+    <section class="py-10 border-y border-slate-100 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-xs text-slate-400 uppercase tracking-widest mb-6">Trusted by Fortune 500 Companies</p>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <!-- Simple SVG Placeholders for logos -->
+                <svg class="h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><path d="M10,15 L20,5 L30,15 L20,25 Z M40,5 H80 V25 H40 Z" fill="#334155"/></svg>
+                <svg class="h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><circle cx="15" cy="15" r="10" fill="#334155"/><rect x="35" y="5" width="40" height="20" fill="#334155"/></svg>
+                <svg class="h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><rect x="5" y="5" width="20" height="20" fill="#334155"/><circle cx="50" cy="15" r="10" fill="#334155"/><rect x="75" y="5" width="20" height="20" fill="#334155"/></svg>
+                <svg class="h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><path d="M10,25 L20,5 L30,25 M40,5 H60 M80,5 H90" stroke="#334155" stroke-width="4"/></svg>
+                <svg class="h-8 w-auto hidden md:block" viewBox="0 0 100 30" fill="currentColor"><rect x="10" y="10" width="80" height="10" fill="#334155"/></svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition / Categories -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
+                <div class="max-w-xl">
+                    <h2 class="font-serif text-4xl text-primary mb-4">Curriculum for the Modern Era</h2>
+                    <p class="text-secondary">Our learning pathways are designed by industry veterans to deliver immediate ROI for your career and organization.</p>
+                </div>
+                <a href="#" class="hidden md:inline-flex items-center text-primary font-medium hover:text-accent transition-colors">
+                    View all departments <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group bg-white p-8 rounded-lg shadow-sm border border-slate-100 hover-lift cursor-pointer" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <i data-lucide="briefcase" class="w-6 h-6 text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Business Strategy</h3>
+                    <p class="text-sm text-slate-500 mb-6 leading-relaxed">Frameworks for decision making in complex environments. Master the art of competitive advantage.</p>
+                    <span class="text-xs font-bold text-accent uppercase tracking-wide group-hover:underline">12 Courses</span>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-white p-8 rounded-lg shadow-sm border border-slate-100 hover-lift cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <i data-lucide="bar-chart-2" class="w-6 h-6 text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Data & Analytics</h3>
+                    <p class="text-sm text-slate-500 mb-6 leading-relaxed">Transform raw numbers into actionable business intelligence. Python, SQL, and strategic visualization.</p>
+                    <span class="text-xs font-bold text-accent uppercase tracking-wide group-hover:underline">08 Courses</span>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-white p-8 rounded-lg shadow-sm border border-slate-100 hover-lift cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <i data-lucide="users" class="w-6 h-6 text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Leadership & Ethics</h3>
+                    <p class="text-sm text-slate-500 mb-6 leading-relaxed">Build high-performing teams and navigate organizational change with empathy and authority.</p>
+                    <span class="text-xs font-bold text-accent uppercase tracking-wide group-hover:underline">15 Courses</span>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="group bg-white p-8 rounded-lg shadow-sm border border-slate-100 hover-lift cursor-pointer" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <i data-lucide="cpu" class="w-6 h-6 text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Digital Transformation</h3>
+                    <p class="text-sm text-slate-500 mb-6 leading-relaxed">Understand AI, Blockchain, and IoT to future-proof your business model.</p>
+                    <span class="text-xs font-bold text-accent uppercase tracking-wide group-hover:underline">10 Courses</span>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="group bg-white p-8 rounded-lg shadow-sm border border-slate-100 hover-lift cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <i data-lucide="globe" class="w-6 h-6 text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Global Economics</h3>
+                    <p class="text-sm text-slate-500 mb-6 leading-relaxed">Macroeconomic trends, emerging markets, and international trade policy.</p>
+                    <span class="text-xs font-bold text-accent uppercase tracking-wide group-hover:underline">06 Courses</span>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="group bg-white p-8 rounded-lg shadow-sm border border-slate-100 hover-lift cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                        <i data-lucide="feather" class="w-6 h-6 text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Design Thinking</h3>
+                    <p class="text-sm text-slate-500 mb-6 leading-relaxed">Human-centric problem solving. Prototyping, testing, and iterating solutions.</p>
+                    <span class="text-xs font-bold text-accent uppercase tracking-wide group-hover:underline">09 Courses</span>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center md:hidden">
+                 <a href="#" class="inline-flex items-center text-primary font-medium hover:text-accent transition-colors">
+                    View all departments <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Courses Carousel -->
+    <section class="py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <span class="text-accent font-semibold tracking-wide uppercase text-sm">Signature Programs</span>
+                <h2 class="font-serif text-4xl text-primary mt-2">Recommended for Executives</h2>
+            </div>
+
+            <div class="swiper mySwiper !pb-14">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-slate-200 hover:shadow-xl transition-shadow duration-300 group">
+                            <div class="relative overflow-hidden h-56">
+                                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Executive Meeting">
+                                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-bold text-primary rounded-sm uppercase tracking-wide">Certificate</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h3 class="font-serif text-xl font-medium leading-tight group-hover:text-accent transition-colors">Executive MBA Intensive</h3>
+                                </div>
+                                <p class="text-sm text-slate-500 line-clamp-3 mb-6">A 12-week accelerated program covering finance, operations, and leadership for C-suite aspirants.</p>
+                                <div class="mt-auto border-t border-slate-100 pt-4 flex items-center justify-between">
+                                    <div class="flex items-center text-sm text-slate-600">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i> 12 Weeks
+                                    </div>
+                                    <span class="font-semibold text-primary">$4,500</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Slide 2 -->
+                     <div class="swiper-slide h-auto">
+                        <div class="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-slate-200 hover:shadow-xl transition-shadow duration-300 group">
+                            <div class="relative overflow-hidden h-56">
+                                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Data Science">
+                                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-bold text-primary rounded-sm uppercase tracking-wide">Masterclass</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h3 class="font-serif text-xl font-medium leading-tight group-hover:text-accent transition-colors">Applied Data Science for Managers</h3>
+                                </div>
+                                <p class="text-sm text-slate-500 line-clamp-3 mb-6">Learn to speak the language of data scientists and make evidence-based decisions without coding.</p>
+                                <div class="mt-auto border-t border-slate-100 pt-4 flex items-center justify-between">
+                                    <div class="flex items-center text-sm text-slate-600">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i> 6 Weeks
+                                    </div>
+                                    <span class="font-semibold text-primary">$2,800</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Slide 3 -->
+                     <div class="swiper-slide h-auto">
+                        <div class="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-slate-200 hover:shadow-xl transition-shadow duration-300 group">
+                            <div class="relative overflow-hidden h-56">
+                                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Leadership">
+                                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-bold text-primary rounded-sm uppercase tracking-wide">Workshop</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h3 class="font-serif text-xl font-medium leading-tight group-hover:text-accent transition-colors">Crisis Leadership & Communication</h3>
+                                </div>
+                                <p class="text-sm text-slate-500 line-clamp-3 mb-6">Navigate public relations, internal morale, and stakeholder management during critical events.</p>
+                                <div class="mt-auto border-t border-slate-100 pt-4 flex items-center justify-between">
+                                    <div class="flex items-center text-sm text-slate-600">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i> 3 Days
+                                    </div>
+                                    <span class="font-semibold text-primary">$1,200</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Slide 4 -->
+                     <div class="swiper-slide h-auto">
+                        <div class="flex flex-col h-full bg-white rounded-lg overflow-hidden border border-slate-200 hover:shadow-xl transition-shadow duration-300 group">
+                            <div class="relative overflow-hidden h-56">
+                                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Tech">
+                                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-bold text-primary rounded-sm uppercase tracking-wide">Certificate</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h3 class="font-serif text-xl font-medium leading-tight group-hover:text-accent transition-colors">AI Implementation Strategy</h3>
+                                </div>
+                                <p class="text-sm text-slate-500 line-clamp-3 mb-6">A practical guide to integrating artificial intelligence into existing business workflows.</p>
+                                <div class="mt-auto border-t border-slate-100 pt-4 flex items-center justify-between">
+                                    <div class="flex items-center text-sm text-slate-600">
+                                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i> 8 Weeks
+                                    </div>
+                                    <span class="font-semibold text-primary">$3,200</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us / Dark Section -->
+    <section class="py-24 bg-primary text-white relative overflow-hidden">
+        <!-- Abstract Decoration -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-accent opacity-10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="font-serif text-4xl lg:text-5xl mb-6">The Lumina Difference</h2>
+                    <p class="text-slate-300 text-lg mb-8 leading-relaxed">
+                        We don't just teach theory. We provide a platform for transformation. Our ecosystem connects you with the minds shaping the future.
+                    </p>
+                    
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center mt-1">
+                                <i data-lucide="check" class="w-4 h-4 text-accent"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium">Ivy League Faculty</h4>
+                                <p class="text-slate-400 text-sm mt-1">Learn directly from professors at the world's top institutions.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center mt-1">
+                                <i data-lucide="check" class="w-4 h-4 text-accent"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium">Networking at Scale</h4>
+                                <p class="text-slate-400 text-sm mt-1">Join a private community of 50,000+ executives worldwide.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center mt-1">
+                                <i data-lucide="check" class="w-4 h-4 text-accent"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium">Outcome-Focused</h4>
+                                <p class="text-slate-400 text-sm mt-1">Capstone projects based on your real-world business challenges.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6" data-aos="fade-left">
+                    <div class="space-y-6 mt-12">
+                        <div class="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/10">
+                            <h3 class="text-3xl font-serif text-accent mb-2">94%</h3>
+                            <p class="text-sm text-slate-300">Completion Rate</p>
+                        </div>
+                         <div class="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/10">
+                            <h3 class="text-3xl font-serif text-accent mb-2">4.9/5</h3>
+                            <p class="text-sm text-slate-300">Average Rating</p>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                         <div class="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/10">
+                            <h3 class="text-3xl font-serif text-accent mb-2">35%</h3>
+                            <p class="text-sm text-slate-300">Avg. Salary Increase</p>
+                        </div>
+                         <div class="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/10">
+                            <h3 class="text-3xl font-serif text-accent mb-2">24/7</h3>
+                            <p class="text-sm text-slate-300">Mentor Support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Faculty/Experts -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
+            <h2 class="font-serif text-4xl text-primary mb-4">Learn from the Masters</h2>
+            <p class="text-secondary max-w-2xl mx-auto">Our instructors aren't just teachers; they are industry leaders, bestselling authors, and pioneers.</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Expert 1 -->
+            <div class="group text-center" data-aos="fade-up" data-aos-delay="0">
+                <div class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&h=400" alt="Expert" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <h3 class="text-xl font-serif font-bold text-primary">Dr. Sarah Jensen</h3>
+                <p class="text-sm text-accent font-medium mb-2">Economics & Strategy</p>
+                <p class="text-xs text-slate-500 mb-4">Former Consultant at McKinsey</p>
+                <div class="flex justify-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <a href="#" class="text-slate-400 hover:text-primary"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-primary"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+
+            <!-- Expert 2 -->
+             <div class="group text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&h=400" alt="Expert" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <h3 class="text-xl font-serif font-bold text-primary">James Chen</h3>
+                <p class="text-sm text-accent font-medium mb-2">Fintech Innovation</p>
+                <p class="text-xs text-slate-500 mb-4">Founder of PayStream</p>
+                <div class="flex justify-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <a href="#" class="text-slate-400 hover:text-primary"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-primary"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+
+            <!-- Expert 3 -->
+             <div class="group text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&h=400" alt="Expert" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <h3 class="text-xl font-serif font-bold text-primary">Elena Rodriguez</h3>
+                <p class="text-sm text-accent font-medium mb-2">Organizational Behavior</p>
+                <p class="text-xs text-slate-500 mb-4">PhD, Stanford University</p>
+                <div class="flex justify-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <a href="#" class="text-slate-400 hover:text-primary"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-primary"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+
+            <!-- Expert 4 -->
+             <div class="group text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&h=400" alt="Expert" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <h3 class="text-xl font-serif font-bold text-primary">Marcus Thorne</h3>
+                <p class="text-sm text-accent font-medium mb-2">Digital Marketing</p>
+                <p class="text-xs text-slate-500 mb-4">CMO at TechGlobal</p>
+                <div class="flex justify-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <a href="#" class="text-slate-400 hover:text-primary"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-primary"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Insights (Blog) -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="font-serif text-3xl md:text-4xl text-primary">Latest Perspectives</h2>
+                <a href="#" class="text-sm font-medium text-slate-500 hover:text-primary flex items-center">View Library <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i></a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Blog 1 -->
+                <article class="flex flex-col group cursor-pointer" data-aos="fade-up">
+                    <div class="overflow-hidden rounded-lg mb-4 h-52">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Blog" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="flex items-center gap-3 text-xs text-slate-500 uppercase tracking-wide mb-2">
+                        <span class="text-accent font-semibold">Report</span>
+                        <span>•</span>
+                        <span>Oct 12, 2023</span>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-primary mb-2 group-hover:text-accent transition-colors">The Future of Remote Leadership</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">How asynchronous workflows are redefining management hierarchies in global corporations.</p>
+                </article>
+
+                <!-- Blog 2 -->
+                <article class="flex flex-col group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <div class="overflow-hidden rounded-lg mb-4 h-52">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Blog" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                     <div class="flex items-center gap-3 text-xs text-slate-500 uppercase tracking-wide mb-2">
+                        <span class="text-accent font-semibold">Trend</span>
+                        <span>•</span>
+                        <span>Sep 28, 2023</span>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-primary mb-2 group-hover:text-accent transition-colors">Financial Markets Outlook 2024</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">An in-depth analysis of inflation, interest rates, and investment strategies for the coming year.</p>
+                </article>
+
+                <!-- Blog 3 -->
+                <article class="flex flex-col group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <div class="overflow-hidden rounded-lg mb-4 h-52">
+                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="Blog" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                     <div class="flex items-center gap-3 text-xs text-slate-500 uppercase tracking-wide mb-2">
+                        <span class="text-accent font-semibold">Case Study</span>
+                        <span>•</span>
+                        <span>Sep 15, 2023</span>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-primary mb-2 group-hover:text-accent transition-colors">Scaling Sustainable Innovation</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">How green technology startups are overcoming regulatory hurdles to reach mass adoption.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action / Footer Top -->
+    <section class="py-20 bg-slate-100 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="font-serif text-4xl text-primary mb-6">Ready to Accelerate Your Career?</h2>
+            <p class="text-secondary mb-8 text-lg">Join 50,000+ professionals transforming their industries. Download our course catalog or speak with an admissions advisor today.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <input type="email" placeholder="Enter your email address" class="px-5 py-4 w-full sm:w-80 rounded-sm border border-slate-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+                <button class="px-8 py-4 bg-primary text-white font-medium rounded-sm shadow-lg hover:bg-slate-800 transition-colors">
+                    Get Started
+                </button>
+            </div>
+            <p class="text-xs text-slate-400 mt-4">By subscribing, you agree to our Privacy Policy.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-white text-primary flex items-center justify-center rounded-sm font-serif italic font-bold text-xl">L</div>
+                        <span class="font-serif font-bold text-2xl tracking-tight text-white">Lumina.</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Premium executive education for the modern leader. Combining academic rigor with real-world application.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links 1 -->
+                <div>
+                    <h4 class="text-lg font-serif mb-6">Programs</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-accent transition-colors">Executive MBA</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Data Science</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Digital Strategy</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Leadership</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Fintech</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links 2 -->
+                <div>
+                    <h4 class="text-lg font-serif mb-6">Platform</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-accent transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">For Enterprise</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Success Stories</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Become a Mentor</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-lg font-serif mb-6">Contact</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li class="flex items-start">
+                            <i data-lucide="map-pin" class="w-4 h-4 mt-1 mr-2 flex-shrink-0"></i>
+                            100 University Ave, Suite 500<br>Palo Alto, CA 94301
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="mail" class="w-4 h-4 mr-2 flex-shrink-0"></i>
+                            admissions@lumina.edu
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="phone" class="w-4 h-4 mr-2 flex-shrink-0"></i>
+                            +1 (800) 555-0199
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
+                <p>&copy; 2024 Lumina Education Inc. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('h-24', 'h-20');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.replace('h-20', 'h-24');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Initialize Swiper (Carousel)
+        const swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            }
+        });
+    </script>
+</body>
+</html>
